@@ -18,28 +18,32 @@ const App = {
   },
   methods: {
     prev() {
+		if (this.activeIndex !== 0) 
 		this.activeIndex--
       	// когда нажимаем кнопку назад
     },
     reset() {
-		this.activeIndex=0
 		this.restart = false
+		this.setActive(0)
 		// начать заново и сбросить состояние "закончен"
     },
     nextOfFinish() {
-		this.lastStep? 
+		this.isLastStep? 
 			this.restart = true
 			:this.activeIndex++
 		  // кнопка вперед или закончить с проверкой на последний шаг
     },
     setActive(idx) {
-		if (this.restart == false) this.activeIndex = idx	
+		if(! this.restart) this.activeIndex = idx	
      	 // отключаем переход по шагам, если состояение "закончен"
     }
   },
   computed: {
-	  lastStep(){
-		 return this.activeIndex==4 ? true:false
+	  isLastStep(){
+		return this.activeIndex == this.steps.length - 1
+	  },
+	  isPrevButtonDisabled(){
+		   return this.activeIndex===0
 	  }
     // проверка на последний шаг
   }

@@ -16,21 +16,21 @@
 					<ul class="steps-list">
 						<li
 							v-for="(step,idx) in steps"
-							:class="{'steps-item': true,'active': idx==activeIndex && !restart,	'done': idx<=activeIndex || restart	}"
+							:class="{'steps-item': true,'active': idx === activeIndex && !restart,	'done': idx < activeIndex || restart	}"
 							@click="setActive(idx)"
 						>
-							<span>{{idx+1}}</span> Шаг {{idx+1}}
+							<span>{{idx+1}}</span> {{steps[idx].title}}
 						</li>
 					</ul>
 					<div v-if="restart">
 						<button class="btn" @click="reset">Начать заново</button>
 					</div>
 					<div v-else>
-						<button class="btn" :disabled="activeIndex===0" @click="prev">
+						<button class="btn"  :disabled="isPrevButtonDisabled" @click="prev">
 							Назад
 						</button>
 						<button class="btn primary" @click="nextOfFinish">
-							{{lastStep?'Закончить':'Вперед'}}
+							{{isLastStep?'Закончить':'Вперед'}}
 						</button>
 					</div>
 				</div>
